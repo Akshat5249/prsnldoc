@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ezyZip Health Chatbot</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --main-bg: #f6fbff;
+            --card-bg: #fff;
+            --brand: #2563eb;
+            --brand2: #06b6d4;
+            --subtitle: #64748b;
+            --footer: #94a3b8;
+            --bubble-user: linear-gradient(90deg, #2563eb 0%, #06b6d4 100%);
+            --bubble-bot: #e0f2fe;
+            --bubble-bot-color: #2563eb;
+            --bubble-user-color: #fff;
+            --btn-send-bg: #2563eb;
+            --btn-send-hover-bg: #06b6d4;
+            --btn-listen-bg: #06b6d4;
+            --btn-listen-hover-bg: #2563eb;
+            --shadow: 0 4px 24px 0 rgba(37, 99, 235, 0.07);
+        }
+        body {
+            min-height: 100vh;
+            background: var(--main-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            transition: background 0.5s;
+        }
+        .chat-card {
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: none;
+            max-width: 520px;
+            width: 100%;
+            padding: 2.5rem 2rem 2rem 2rem;
+            background: var(--card-bg);
+            animation: fadeInCard 0.7s;
+            transition: background 0.5s, box-shadow 0.5s;
+        }
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .brand {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--brand);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .brand i {
+            color: var(--brand2);
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        .subtitle {
+            color: var(--subtitle);
+            font-size: 1.08rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        .chat-area {
+            background: #f8fafd;
+            border-radius: 14px;
+            padding: 18px;
+            height: 350px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            border: 1.5px solid #e0e7ef;
+            box-shadow: none;
+        }
+        .msg {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-end;
+            animation: fadeIn 0.4s;
+        }
+        .msg.user .bubble {
+            background: var(--bubble-user);
+            color: var(--bubble-user-color);
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .msg.bot .bubble {
+            background: var(--bubble-bot);
+            color: var(--bubble-bot-color);
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .bubble {
+            padding: 12px 18px;
+            border-radius: 18px;
+            max-width: 80%;
+            font-size: 1.05rem;
+            box-shadow: none;
+            position: relative;
+        }
+        .msg.user .bubble:after {
+            content: '\f007';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--brand);
+            font-size: 1.2rem;
+        }
+        .msg.bot .bubble:before {
+            content: '\f544';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--brand2);
+            font-size: 1.2rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .chat-controls input {
+            flex: 1;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            border: 1.5px solid #e0e7ef;
+            box-shadow: none;
+        }
+        .btn-listen {
+            background: var(--btn-listen-bg);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0 14px;
+            font-size: 1.2rem;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+        .btn-listen:hover {
+            background: var(--btn-listen-hover-bg);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .btn-send {
+            background: var(--btn-send-bg);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+        .btn-send:hover {
+            background: var(--btn-send-hover-bg);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .typing-indicator {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 1.1rem;
+            color: var(--brand2);
+            letter-spacing: 2px;
+            animation: blink 1.2s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .footer {
+            text-align: center;
+            color: var(--footer);
+            font-size: 0.95rem;
+            margin-top: 2rem;
+        }
+        .dark-mode {
+            --main-bg: linear-gradient(120deg, #232526 0%, #414345 100%);
+            --card-bg: #23272f;
+            --brand: #90caf9;
+            --brand2: #06b6d4;
+            --subtitle: #b0bec5;
+            --footer: #b0bec5;
+            --bubble-user: linear-gradient(90deg, #232526 0%, #06b6d4 100%);
+            --bubble-bot: #23272f;
+            --bubble-bot-color: #06b6d4;
+            --bubble-user-color: #fff;
+            --btn-send-bg: #06b6d4;
+            --btn-send-hover-bg: #2563eb;
+            --btn-listen-bg: #23272f;
+            --btn-listen-hover-bg: #06b6d4;
+            --shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
+        }
+        .dark-toggle {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            z-index: 10;
+        }
+        .dark-toggle-btn {
+            background: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #2563eb;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode .dark-toggle-btn {
+            background: #23272f;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-toggle">
+        <button class="dark-toggle-btn" id="toggle-dark" title="Toggle dark mode"><i class="fa fa-moon"></i></button>
+    </div>
+    <div class="chat-card mx-auto">
+        <div class="brand mb-2"><i class="fa-solid fa-notes-medical"></i>ezyZip Health</div>
+        <div class="subtitle">AI Chatbot for Medication Info</div>
+        <div class="chat-area" id="chat-area">
+            <div class="msg bot"><div class="bubble">Hi! 👋 I am your AI health assistant. Ask me about medications, symptoms, or diseases.</div></div>
+        </div>
+        <div class="chat-controls">
+            <input type="text" id="user-input" class="form-control" placeholder="Type your question...">
+            <button class="btn-send" id="send-btn"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn-listen" id="listen-btn" title="Listen to last answer"><i class="fa fa-volume-up"></i></button>
+        </div>
+        <div class="footer mt-4">&copy; 2024 ezyZip Health | Made with <i class="fa fa-heart text-danger"></i> by Akshat</div>
+    </div>
+    <script>
+        const toggleBtn = document.getElementById('toggle-dark');
+        const body = document.body;
+        let dark = false;
+        toggleBtn.onclick = function() {
+            dark = !dark;
+            body.classList.toggle('dark-mode', dark);
+            toggleBtn.innerHTML = dark ? '<i class="fa fa-sun"></i>' : '<i class="fa fa-moon"></i>';
+        };
+
+        const chatArea = document.getElementById('chat-area');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const listenBtn = document.getElementById('listen-btn');
+        let lastBotMsg = '';
+        let typingIndicator = null;
+
+        function appendMsg(sender, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'msg ' + sender;
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.textContent = text;
+            msgDiv.appendChild(bubble);
+            chatArea.appendChild(msgDiv);
+            chatArea.scrollTop = chatArea.scrollHeight;
+            if(sender === 'bot') lastBotMsg = text;
+        }
+
+        function showTyping() {
+            typingIndicator = document.createElement('div');
+            typingIndicator.className = 'msg bot';
+            typingIndicator.innerHTML = '<div class="bubble"><span class="typing-indicator">Typing...</span></div>';
+            chatArea.appendChild(typingIndicator);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function hideTyping() {
+            if (typingIndicator) {
+                chatArea.removeChild(typingIndicator);
+                typingIndicator = null;
+            }
+        }
+
+        sendBtn.onclick = async function() {
+            const text = userInput.value.trim();
+            if(!text) return;
+            appendMsg('user', text);
+            userInput.value = '';
+            showTyping();
+            // Send to backend
+            const res = await fetch('/ask', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: text})
+            });
+            const data = await res.json();
+            hideTyping();
+            appendMsg('bot', data.answer);
+        };
+
+        userInput.addEventListener('keydown', function(e) {
+            if(e.key === 'Enter') sendBtn.click();
+        });
+
+        listenBtn.onclick = function() {
+            if(!lastBotMsg) return;
+            const synth = window.speechSynthesis;
+            if(synth.speaking) synth.cancel();
+            const utter = new SpeechSynthesisUtterance(lastBotMsg);
+            utter.lang = 'en-US';
+            synth.speak(utter);
+        };
+    </script>
+</body>
+</html> 

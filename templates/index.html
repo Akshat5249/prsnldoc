@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ezyZip Health</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <style>
+        :root {
+            --main-bg: #f6fbff;
+            --card-bg: #fff;
+            --brand: #2563eb;
+            --brand2: #06b6d4;
+            --subtitle: #64748b;
+            --disease: #2563eb;
+            --footer: #94a3b8;
+            --btn-ai-bg: #fff;
+            --btn-ai-border: #06b6d4;
+            --btn-ai-color: #06b6d4;
+            --btn-ai-hover-bg: #e0f2fe;
+            --btn-ai-hover-color: #2563eb;
+            --shadow: 0 4px 24px 0 rgba(37, 99, 235, 0.07);
+            --feature-bg: #f0f6ff;
+            --feature-icon: #2563eb;
+        }
+        body {
+            min-height: 100vh;
+            background: var(--main-bg);
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            transition: background 0.5s;
+        }
+        .container-main {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-card {
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: none;
+            width: 100%;
+            max-width: 520px;
+            padding: 2.5rem 2rem 2rem 2rem;
+            background: var(--card-bg);
+            animation: fadeInCard 0.7s;
+            transition: background 0.5s, box-shadow 0.5s;
+        }
+        @media (min-width: 900px) {
+            .main-card {
+                max-width: 700px;
+                padding: 2.5rem 3rem 2.5rem 3rem;
+            }
+        }
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .brand {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--brand);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .brand i {
+            color: var(--brand2);
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        .subtitle {
+            color: var(--subtitle);
+            font-size: 1.08rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        .form-label {
+            font-weight: 700;
+            color: var(--brand);
+            font-size: 1.08rem;
+        }
+        .choices__inner {
+            min-height: 48px;
+            border-radius: 10px;
+            font-size: 1rem;
+            border: 1.5px solid #e0e7ef;
+            box-shadow: none;
+            background: var(--card-bg);
+            color: var(--brand);
+            transition: background 0.5s, color 0.5s;
+        }
+        .choices__list--multiple .choices__item {
+            background-color: #e0f2fe;
+            color: #2563eb;
+            border-radius: 16px;
+            font-weight: 600;
+            margin: 2px 4px;
+            padding: 4px 12px;
+            border: none;
+        }
+        .choices__list--dropdown .choices__item--selectable.is-highlighted {
+            background-color: #e0f2fe;
+            color: #2563eb;
+        }
+        .dark-mode .choices__inner {
+            background: #23272f;
+            color: #90caf9;
+            border: 1px solid #444;
+        }
+        .dark-mode .choices__list--multiple .choices__item {
+            background-color: #263238;
+            color: #90caf9;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #2563eb 0%, #06b6d4 100%);
+            border: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            font-size: 1.08rem;
+            box-shadow: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #06b6d4 0%, #2563eb 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .btn-ai {
+            background: var(--btn-ai-bg);
+            color: var(--btn-ai-color);
+            font-weight: 700;
+            border-radius: 10px;
+            font-size: 1.08rem;
+            margin-top: 1.2rem;
+            border: 2px solid var(--btn-ai-border);
+            box-shadow: none;
+            transition: background 0.2s, color 0.2s, border 0.2s, transform 0.2s;
+        }
+        .btn-ai:hover {
+            background: var(--btn-ai-hover-bg);
+            color: var(--btn-ai-hover-color);
+            border-color: #2563eb;
+            transform: translateY(-2px) scale(1.03);
+        }
+        .features-section {
+            margin: 2.5rem auto 0 auto;
+            max-width: 900px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .feature-card {
+            background: var(--feature-bg);
+            border-radius: 16px;
+            box-shadow: none;
+            padding: 1.5rem 1.2rem;
+            flex: 1 1 220px;
+            min-width: 220px;
+            max-width: 290px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: background 0.5s;
+        }
+        .feature-icon {
+            font-size: 2.1rem;
+            color: var(--feature-icon);
+            margin-bottom: 0.7rem;
+        }
+        .feature-title {
+            font-weight: 700;
+            color: var(--brand);
+            font-size: 1.13rem;
+            margin-bottom: 0.3rem;
+        }
+        .feature-desc {
+            color: var(--subtitle);
+            font-size: 1.01rem;
+            font-weight: 500;
+        }
+        .footer {
+            text-align: center;
+            color: var(--footer);
+            font-size: 0.95rem;
+            margin-top: 2rem;
+        }
+        .dark-mode {
+            --main-bg: linear-gradient(120deg, #232526 0%, #414345 100%);
+            --card-bg: #23272f;
+            --brand: #90caf9;
+            --brand2: #06b6d4;
+            --subtitle: #b0bec5;
+            --disease: #90caf9;
+            --footer: #b0bec5;
+            --btn-ai-bg: #23272f;
+            --btn-ai-border: #06b6d4;
+            --btn-ai-color: #06b6d4;
+            --btn-ai-hover-bg: #232526;
+            --btn-ai-hover-color: #fff;
+            --shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
+            --feature-bg: #23272f;
+            --feature-icon: #06b6d4;
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-toggle" style="position: absolute; top: 32px; right: 32px; z-index: 10;">
+        <button class="dark-toggle-btn" id="toggle-dark" title="Toggle dark mode" style="background: #fff; border: none; border-radius: 50%; width: 44px; height: 44px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #2563eb; transition: background 0.3s, color 0.3s;"><i class="fa fa-moon"></i></button>
+    </div>
+    <div class="container-main">
+        <div class="main-card mx-auto">
+            <div class="brand mb-2"><i class="fa-solid fa-notes-medical"></i>ezyZip Health</div>
+            <div class="subtitle">AI-powered Disease & Drug Recommendation</div>
+            <form action="/predict" method="POST">
+                <div class="mb-3">
+                    <label for="symptoms" class="form-label"><i class="fa-solid fa-stethoscope me-2"></i>Select your symptoms:</label>
+                    <select id="symptoms" name="symptoms" multiple required>
+                        <option value="Fever">Fever</option>
+                        <option value="Cough">Cough</option>
+                        <option value="Headache">Headache</option>
+                        <option value="Fatigue">Fatigue</option>
+                        <option value="Joint pain">Joint pain</option>
+                        <option value="Rash">Rash</option>
+                        <option value="Sore throat">Sore throat</option>
+                        <option value="Shortness of breath">Shortness of breath</option>
+                        <option value="Abdominal pain">Abdominal pain</option>
+                        <option value="Nausea">Nausea</option>
+                        <option value="Sneezing">Sneezing</option>
+                        <option value="Muscle pain">Muscle pain</option>
+                        <option value="Dizziness">Dizziness</option>
+                        <option value="Vomiting">Vomiting</option>
+                        <option value="Diarrhea">Diarrhea</option>
+                        <option value="Constipation">Constipation</option>
+                        <option value="Chest pain">Chest pain</option>
+                        <option value="Back pain">Back pain</option>
+                        <option value="Difficulty swallowing">Difficulty swallowing</option>
+                        <option value="Weight loss">Weight loss</option>
+                    </select>
+                    <div class="form-text">Type to search and select multiple symptoms.</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-3"><i class="fa-solid fa-magnifying-glass me-2"></i>Predict Disease</button>
+            </form>
+            <div class="text-center">
+                <a href="/chat" class="btn btn-ai btn-lg w-100"><i class="fa-solid fa-robot me-2"></i>Chat with AI</a>
+            </div>
+            <div class="footer mt-4">&copy; 2024 ezyZip Health | Made with <i class="fa fa-heart text-danger"></i> by Akshat</div>
+        </div>
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+                <div class="feature-title">AI-Powered Analysis</div>
+                <div class="feature-desc">Advanced algorithms analyze your symptoms for accurate disease predictions.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-pills"></i></div>
+                <div class="feature-title">Smart Recommendations</div>
+                <div class="feature-desc">Get personalized medication suggestions based on your condition.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-headset-medical"></i></div>
+                <div class="feature-title">24/7 Health Support</div>
+                <div class="feature-desc">Access our AI health assistant anytime for instant medical guidance.</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script>
+        const toggleBtn = document.getElementById('toggle-dark');
+        const body = document.body;
+        let dark = false;
+        toggleBtn.onclick = function() {
+            dark = !dark;
+            body.classList.toggle('dark-mode', dark);
+            toggleBtn.innerHTML = dark ? '<i class="fa fa-sun"></i>' : '<i class="fa fa-moon"></i>';
+        };
+        // Choices.js for multi-select with chips
+        const choices = new Choices('#symptoms', {
+            removeItemButton: true,
+            searchPlaceholderValue: 'Search symptoms...',
+            placeholder: true,
+            placeholderValue: 'Select symptoms',
+            classNames: {
+                containerOuter: 'choices',
+                input: 'choices__input',
+            }
+        });
+    </script>
+</body>
+</html>
+
