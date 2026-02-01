@@ -167,7 +167,7 @@ def ask():
             api_key=OPENROUTER_API_KEY,
             base_url="https://openrouter.ai/api/v1",
             default_headers={
-                "HTTP-Referer": "http://127.0.0.1:5000",
+                "HTTP-Referer": request.host_url,
                 "X-Title": "ezyZip Health"
             }
         )
