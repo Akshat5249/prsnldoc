@@ -42,8 +42,8 @@ venv.bak/
 Thumbs.db
 
 # Project Specific
-medical_rf.pkl
-ensemble_model.pkl
+# medical_rf.pkl
+# ensemble_model.pkl
 # Note: Usually ML models are kept out of git if large, but here we include or exclude depending on size.
 # These are small (41 bytes from list_dir?), so it's fine. 
 # But let's check their size again.
