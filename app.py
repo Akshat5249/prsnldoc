@@ -16,10 +16,15 @@ class EnsembleModel:
     def __init__(self):
         pass  # Define your model architecture here
 
+# Handle absolute paths for model loading on Vercel
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+disease_model_path = os.path.join(BASE_DIR, 'ensemble_model.pkl')
+drug_model_path = os.path.join(BASE_DIR, 'medical_rf.pkl')
+
 # Now try loading again
 try:
-    disease_model = joblib.load('ensemble_model.pkl')
-    drug_model = joblib.load('medical_rf.pkl')
+    disease_model = joblib.load(disease_model_path)
+    drug_model = joblib.load(drug_model_path)
 except Exception as e:
     print(f"Warning: Could not load model files: {e}")
     print("The app will use fallback symptom-to-disease mapping.")
