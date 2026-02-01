@@ -1,5 +1,9 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect
+
+# Load local .env file
+load_dotenv()
 import joblib
 import openai
 
