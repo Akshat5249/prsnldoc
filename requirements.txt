@@ -1,5 +1,6 @@
-flask
+Flask
 joblib
 scikit-learn
 google-generativeai
 openai
+gunicorn
