@@ -6,9 +6,7 @@ import openai
 
 app = Flask(__name__)
 
-GEMINI_API_KEY = "AIzaSyCOD77HktW5xoX5r3OIN6sT5EdpCsxpxAg"
-OPENAI_API_KEY = "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"
-OPENROUTER_API_KEY = "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"
+
 
 
 class EnsembleModel:
