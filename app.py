@@ -183,7 +183,8 @@ def ask():
         answer = response.choices[0].message.content.strip()
     except Exception as e:
         print("OpenRouter API error:", e)
-        answer = "Sorry, I couldn't get an answer right now."
+        # Expose a bit of the error to the UI to help the user debug
+        answer = f"Sorry, I couldn't get an answer. Error: {str(e)[:100]}"
     return {'answer': answer}
 
 if __name__ == '__main__':
