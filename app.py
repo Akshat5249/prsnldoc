@@ -13,7 +13,11 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "sk-or-v1-788d68e8a601a3006
 
 class EnsembleModel:
     def __init__(self):
-        pass  # Define your model architecture here
+        pass
+
+class DummyModel:
+    def __init__(self):
+        pass
 
 # Handle absolute paths for model loading on Vercel
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
