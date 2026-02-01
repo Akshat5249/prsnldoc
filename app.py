@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect
 import joblib
-import google.generativeai as genai
 import openai
 
 
