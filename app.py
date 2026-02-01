@@ -16,8 +16,14 @@ class EnsembleModel:
         pass  # Define your model architecture here
 
 # Now try loading again
-disease_model = joblib.load('ensemble_model.pkl')
-drug_model = joblib.load('medical_rf.pkl')
+try:
+    disease_model = joblib.load('ensemble_model.pkl')
+    drug_model = joblib.load('medical_rf.pkl')
+except Exception as e:
+    print(f"Warning: Could not load model files: {e}")
+    print("The app will use fallback symptom-to-disease mapping.")
+    disease_model = None
+    drug_model = None
 
 
 symptom_to_disease = {
