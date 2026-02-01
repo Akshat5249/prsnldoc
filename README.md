@@ -57,21 +57,36 @@ A modern, AI-powered healthcare application designed to provide instant disease 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/Akshat5249/diseaseprediction.git
-   cd diseaseprediction
+   git clone https://github.com/Akshat5249/prsnldoc.git
+   cd prsnldoc
    ```
 
-2. **Install Dependencies**
+2. **Create a Virtual Environment**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install Dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the Application**
+4. **Environment Variables**
+   Create a `.env` file in the root directory and add your API keys:
+   ```text
+   GEMINI_API_KEY=your_gemini_key
+   OPENAI_API_KEY=your_openai_key
+   OPENROUTER_API_KEY=your_openrouter_key
+   ```
+   *(Note: This file is ignored by Git to keep your keys private.)*
+
+5. **Run the Application**
    ```bash
-   python app.py
+   python3 app.py
    ```
 
-4. **Access the App**
+6. **Access the App**
    Open your browser and navigate to:
    ```text
    http://127.0.0.1:5001
